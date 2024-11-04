@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head><title id="title">Association</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=320, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans:400,700'>
+    <link rel="stylesheet" href="./style.css">
+    <script src="./gauge.js"></script>
+    <script src="iot-widget.min.js"></script>
+
+</head>
+<body class="bg-dark text-white my-0 py-2">
+<div class="container">
+    <div class="text-danger justify-content-center">
+        <div class="col-8"><u id="espMessage">Message</u></div>
+    </div>
+    <div id="index">
+        <div class="row  justify-content-evenly">
+            <h1 class="display-4"><u id="espName">Chambre de Camille</u></h1>
+            <div class="form-check form-switch col-3 my-2">
+                <input class="form-check-input" type="checkbox" id="switch" >
+                <label class="form-check-label" for="switch"><u id="power">OFF</u></label>
+            </div>
+            <hr class="my-1">
+
+
+        </div>
+
+
+<!--        <div class=" my-4 row justify-content-evenly">-->
+
+            <!--            <button type="button" class="btn btn-outline-primary col-4" onclick="turnOnLed()">ON</button>-->
+            <!--            <button type="button" class="btn btn-outline-primary col-4" onclick="turnOffLed()">OFF</button>-->
+
+<!--        </div>-->
+
+
+        <div class="row justify-content-evenly">
+            <!--  jauge temperature      -->
+            <div class="col-5 col-md-6">
+<!--                <p class="col-5 col-md-12 offset-4 my-4 offset-md-0 invisible"><span><u>Température actuelle</u></span></p>-->
+                <div class="row col-md-12 d-flex justify-content-end">
+<!--                <span class="label label-primary invisible">Température souhaiter:-->
+<!--                                <span id='sliderPos'></span>°C</span>-->
+                    <img src="./hot.png" class="icon col-3" alt="hot">
+                    <select name="TemperatureUser" id="selectnumber"class="form-select col-4"
+                            onchange='servo(this.value)' >
+
+                    </select>
+                    <!--                <input type="number" class="col-8" id="selectnumber" step="0.50" max="30" min="15"-->
+                    <!--                       onchange='servo(this.value)' >-->
+
+                </div>
+                <div class="gauge col-6 col-md-12 row justify-content-evenly"></div>
+                <svg width="0" height="0" version="1.1" class="gradient-mask" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="gradientGauge">
+                            <stop class="color-blue" offset="0%"/>
+                            <stop class="color-green" offset="17%"/>
+                            <stop class="color-yellow" offset="40%"/>
+                            <stop class="color-yellow" offset="87%"/>
+                            <stop class="color-red" offset="100%"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </div>
+            <div class="col-5 col-md-4">
+                <!--    <div class="row justify-content-evenly">-->
+                <div class="slide-wrapper col-6  offset-3 rounded justify-content-center">
+                    <div class="humidity-container justify-content-center" id="humidity-container"></div>
+                </div>
+            </div>
+        </div>
+
+
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.2/jquery.min.js'></script>
+        <script src='https://cdn3.devexpress.com/jslib/17.1.6/js/dx.all.js'></script>
+
+
+        <div class="d-grid gap-2 my-4"><a href="https://njhomes.fr/accueil/" class="btn btn-outline-primary">Home</a>
+        </div>
+        <!--        -->
+        <!--        <div class="slide-wrapper col-5 rounded ">-->
+        <!--            <div class="termometer-container float-right" id="termomter-container"></div>-->
+        <!--        </div>-->
+        <!--    </div>-->
+    </div>
+    <div id="association">
+        <div class=" row jumbotron jumbotron-fluid">
+            <h1 class="display-4">Association du module</h1>
+            <hr class="my-4">
+            <p class="lead">Ceci est l'interface permettant de synchroniser votre module à votre compte. Sans cette
+                opération nous ne pouvons aller plus loin. </p>
+        </div>
+        <br>
+        <!--    <form action="">-->
+        <div class="row  justify-content-evenly">
+            <div class="row  justify-content-evenly">
+                <div><label for="email">Email</label></div>
+                <div class="my-2"><input type="email" class="form-control" id="email" placeholder="tot@gmail.com"
+                                         required>
+                </div>
+            </div>
+            <br>
+            <div class="row justify-content-evenly">
+                <div><label for="espName">Nom du module</label></div>
+                <div class="my-2"><input type="text" class="form-control" id="espNameAss"
+                                         placeholder="Moins de 50 caractères ex:chambre">
+                </div>
+            </div>
+            <br>
+
+            <div class="my-4 row justify-content-evenly">
+                <input type="submit" id="submit" value="Soumettre" class="btn btn-outline-primary">
+            </div>
+            <!--    </form>-->
+            <hr class="my-4">
+            <div class="row  justify-content-evenly">
+                <p>Vous n'êtes pas encore inscit? incrivez-vous et revenez sur cette page.</p>
+                <!--        <br><br>-->
+                <a href="http://njhomes.fr/addUser" id="addUser"
+                   class="my-4 btn btn-outline-primary col-4">S'incrire</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/JavaScript">
+    var swicht = false;
+    // $(document).ready(function () {
+    //     $('#association').show('fast');
+    //     $('#index').show('fast');
+    // });
+    selectNumber ();
+    var mail = document.getElementById('email');
+    var espNameAss = document.getElementById('espNameAss');
+
+    var container = document.getElementById('humidity-container');
+    var hw = new Widget.Humidity(container, 0);
+    hw.draw();
+    // var container2 = document.getElementById('termomter-container');
+    // var tw = new Widget.Termometer(container2, 0);
+    // tw.draw();
+    var espName = document.getElementById('espName');
+    var espMessage = document.getElementById('espMessage');
+    var title = document.getElementById('title');
+    var power = document.getElementById('power');
+    var slider = document.getElementById('selectnumber');
+    // var sliderP = document.getElementById('sliderPos');
+    // sliderP.innerHTML = slider.val();
+    // slider.oninput = function () {
+    //     slider.value = this.value;
+    //     sliderP.innerHTML = this.value;
+    // }
+    $.ajaxSetup({timeout: 1000});
+
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+
+    var token = getCookie('ESPSESSIONID');
+
+    function debounce(fn, threshold) {
+        threshold = threshold || 300;
+        var timer;
+        return function () {
+            if (!timer) {
+                fn.apply(this, arguments);
+            }
+            clearTimeout(timer);
+            timer = setTimeout(function () {
+                timer = null;
+            }, threshold);
+        };
+    };
+
+    polling();
+
+    //function for update temperature
+    function setTemperatureEsp(tempeEsp) {
+        $('.gauge').each(function (index, item) {
+            let gauge = $(item).dxCircularGauge('instance');
+            let randomNum = tempeEsp.toFixed(1);
+            let gaugeElement = $(gauge._$element[0]);
+
+            gaugeElement.find('.dxg-title text').last().html(`${randomNum} ºC`);
+            gauge.value(randomNum);
+        });
+    };
+
+
+    var requestTempHum = function () {
+        var xhttp = new XMLHttpRequest();
+        var humidityVar = 0.0;
+        var temperatureVar = 0.0;
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                // Typical action to be performed when the document is ready:
+                var res = JSON.parse(xhttp.responseText);
+                hw.setHumidity(res.humidity);
+                setTemperatureEsp(res.temp);
+
+                espName.innerHTML = res.espName;
+                title.innerHTML = res.espName;
+                espMessage.innerHTML = res.espWebMessage;
+                power.innerHTML = res.espStatus;
+                slider.value = res.userTemperature;
+                // sliderP.innerHTML = res.userTemperature;
+
+                if(res.espStatus ==='ON'){
+                    $('#switch').checked = true;
+                }else{
+                    $('#switch').checked = false;
+                }
+                if (res.espWebMessage !== "") {
+                    $('#espError').show('slow');
+                } else {
+                    $('#espError').hide('slow');
+                }
+                if (res.espName !== "") {
+                    swicht = true;
+                } else {
+                    console.log(res.espName);
+                }
+                if (swicht) {
+                    $('#association').hide('slow');
+                    $('#index').show('slow');
+                } else {
+                    $('#association').show('slow');
+                    $('#index').hide('slow');
+                }
+                // $('u .power').toggleClass('text-danger');
+                // setTemperatureEsp(22);
+                // //
+            }
+        };
+        // xhttp.onerror = function () {
+        //     alert("Status code is " + this.status + " click F12 and check what is the problem on console");
+        // };
+
+        xhttp.open("GET", "/temperatureHumidity", true);
+        xhttp.send();
+    }
+    var debouncedRequestTempHum = debounce(requestTempHum, 400);
+
+    var refresh = function () {
+        debouncedRequestTempHum();
+    }
+    debouncedRequestTempHum();
+
+    function polling() {
+        setTimeout(function () {
+            debouncedRequestTempHum();
+            polling();
+        }, 2500);
+    }
+
+
+    function servo(pos) {
+        $.get('/args?slider=' + pos);
+        {
+            Connection: close
+        }
+        ;
+    }
+
+    $('#switch').on('click',function(){
+        // alert($(this).is(":checked"));
+        if($(this).is(":checked")){
+            $.get('/args?led=1');
+            power.innerHTML = "ON";
+        }else {
+            $.get('/args?led=0');
+            power.innerHTML = "OFF";
+        }
+        {
+            Connection: close
+        }
+        ;
+
+    });
+
+
+    $('#submit').on('click', function () {
+        alert('nom du module: ' + espNameAss.value + '\nemail: ' + mail.value);
+        // $.get('/add_user?email=' + mail.value);
+        // $.get('/add_user?espName=' + espNameAss.value);
+        $.get('/add_user?email=' + mail.value + '&espName=' + espNameAss.value);
+        {
+            Connection: close
+        }
+        ;
+    })
+    function selectNumber (){
+        for (var i = 10.00; i < 35.5; i+=0.5){
+            $('#selectnumber').append('<option>'+i+'</option>');
+
+        }
+    }
+</script>
+</body>
+</html>
